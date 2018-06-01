@@ -1,14 +1,25 @@
-<ion-header>
+<ion-header>  
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      MEMES
     </ion-title>
   </ion-navbar>
-</ion-header>
-
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
-</ion-content>
+</ion-header>  
+<ion-content padding>  
+  <button ion-button full (click)="presentPrompt()">Buscar novos memes</button>
+  <ng-container *ngFor="let post of posts | async">
+    <ion-card *ngIf="post.photos.length > 0">
+      <ion-item>
+        <ion-avatar item-left>
+          <img src="http://graph.facebook.com/{{post.from.id}}/picture" />
+        </ion-avatar>
+        <h2>{{ post.from.name }}</h2>
+        <p>{{ post.time | date:'medium' }}</p>
+      </ion-item>
+      <img [src]="post.photos[0].src" />
+      <ion-card-content>
+        <p>{{ post.message }}</p>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+</ion-content>  
